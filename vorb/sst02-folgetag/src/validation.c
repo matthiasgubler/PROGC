@@ -6,7 +6,6 @@
 #include "validation.h"
 #include "globals.h"
 
-#define PARSE_ERROR -1
 #define GREGORIAN_CAL_START_YEAR 1583
 
 bool isValidInputInt(int intToVerify, char *errorText);
@@ -16,36 +15,36 @@ bool isDateValid(Date *parsed_date);
 int validate_and_parse_date(int scannedParams, int day, int monthPreChecked, int year, Date *parsed_date) {
     Month month;
 
-    if (scannedParams < 3 && scannedParams > 4) {
+    if (scannedParams < 3 || scannedParams > 4) {
         (void) printf("Anzahl Argumente ungültig!\n");
-        return PARSE_ERROR;
+        return PARAM_COUNT_ERROR;
     }
 
     if (isValidInputInt(day, "Tag") == false
         || isValidInputInt(monthPreChecked, "Monat") == false
         || isValidInputInt(year, "Jahr") == false) {
-        return PARSE_ERROR;
+        return INVALID_DMY_ERROR;
     }
 
     if (year < GREGORIAN_CAL_START_YEAR) {
         (void) printf("Es können nur Daten ab dem 1. Januar %d eingegeben werden!\n", GREGORIAN_CAL_START_YEAR);
-        return PARSE_ERROR;
+        return INVALID_GREGORIAN_YEAR_ERROR;
     }
 
     if (monthPreChecked >= Jan && monthPreChecked <= Dec) {
         month = (Month) monthPreChecked;
     } else {
         (void) printf("Monat muss Wert von 1 - 12 haben!\n");
-        return PARSE_ERROR;
+        return INVALID_MONTH_ERROR;
     }
 
     *parsed_date = (Date) {day, month, year};
 
     if (isDateValid(parsed_date) == false) {
-        return PARSE_ERROR;
+        return INPUT_DATE_INVALID_ERROR;
     }
 
-    return 0;
+    return NO_PARSE_ERROR;
 }
 
 bool isDateValid(Date *parsed_date) {

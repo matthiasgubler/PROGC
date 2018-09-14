@@ -37,22 +37,22 @@ bool isLeapYear(int year) {
 }
 
 
-int getPossibleDaysOfDate(Date *dateToCheck) {
-    if (dateToCheck->month == Feb) {
-        if (isLeapYear(dateToCheck->year) == true) {
+int getPossibleDaysOfDate(Month month, int year) {
+    if (month == Feb) {
+        if (isLeapYear(year) == true) {
             return 29;
         }
         return 28;
     }
 
-    if (monthHas31Days(dateToCheck->month) == true) {
+    if (monthHas31Days(month) == true) {
         return 31;
     }
 
-    if (monthHas30Days(dateToCheck->month) == true) {
+    if (monthHas30Days(month) == true) {
         return 30;
     }
 
-    (void)printf("Ungültiger Input bei getPossibleDaysOfDate(Date*)\n");
+    (void)printf("Ungültiger Input bei getPossibleDaysOfDate(%02d.%d)\n", month, year);
     return -1;
 }

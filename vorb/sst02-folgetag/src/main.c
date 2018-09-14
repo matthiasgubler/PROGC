@@ -48,7 +48,6 @@ int main(int argc, char *argv[]) {
         }
 
         int scannedParams = sscanf(caInternalBuffer ,"%d %d %d %d", &day, &month, &year, &daysToAdd);
-
         if(scannedParams == EOF){
             exit(BUFFER_ERROR);
         }

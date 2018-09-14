@@ -23,7 +23,7 @@ bool monthHas30Days(Month month);
 
 bool isLeapYear(int year);
 
-int getPossibleDaysOfDate(Date *dateToCheck);
+int getPossibleDaysOfDate(Month month, int year);
 
 #endif //PROGC_GLOBALS_H
 
