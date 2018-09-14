@@ -39,14 +39,14 @@ int main(int argc, char* argv[])
 	unsigned char value = valueTemp;
 	signed char signedValue = value;
 	unsigned char addValue = value+255;
-	unsigned char einer = (~value);
-	unsigned zweier = einer + 1;
+	signed char einer = (~value);
+	signed zweier = einer + 1;
 
-	printf("unsigned: %4u (0x%02x)\n", value, value);
-	printf("signed: %4d (0x%02x)\n", signedValue, signedValue);
-	printf("+255: %4d (0x%02x)\n", addValue, addValue);
-	printf("ones: %4u (0x%02x)\n", einer, einer);
-	printf("twos: %4u (0x%02x)\n", zweier, zweier);
+	printf("unsigned:\t %4u (0x%02x)\n", value, value);
+	printf("signed:\t\t %4d (0x%02x)\n", signedValue, signedValue);
+	printf("+255:\t\t %4d (0x%02x)\n", addValue, addValue);
+	printf("ones:\t\t %4d (0x%02x)\n", einer, einer);
+	printf("twos: \t\t %4d (0x%02x)\n", zweier, zweier);
 	return EXIT_SUCCESS;
 
 	/*
