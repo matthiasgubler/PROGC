@@ -13,6 +13,7 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 /**
  * @brief Main entry point.
@@ -24,17 +25,33 @@
  * @returns Returns EXIT_SUCCESS (=0) on success,
  *                  EXIT_FAILURE (=1) if more than one argument is given.
  */
+
+
 int main(int argc, char* argv[])
 {
-	// begin students to add code for task 4.1
-	printf("Program name: %s\n", argv[0]);
-	if(argc == 1){
-	    printf("Hello World!\n");
-	}else if(argc == 2){
-        printf("Hello %s\n", argv[1]);
-	}else{
-	    return EXIT_FAILURE;
+	double MAX_VALUE = pow(2.0, sizeof(char) * 8) - 1;
+	int valueTemp;
+
+	if (sscanf(argv[1], "%u", &valueTemp) < 1 || valueTemp > MAX_VALUE) {
+		(void)printf("ungültiger wert");
+		return EXIT_FAILURE;
 	}
-	// end students to add code
+	unsigned char value = valueTemp;
+	signed char signedValue = value;
+	unsigned char addValue = value+255;
+	unsigned char einer = (~value);
+	unsigned zweier = einer + 1;
+
+	printf("unsigned: %4u (0x%02x)\n", value, value);
+	printf("signed: %4d (0x%02x)\n", signedValue, signedValue);
+	printf("+255: %4d (0x%02x)\n", addValue, addValue);
+	printf("ones: %4u (0x%02x)\n", einer, einer);
+	printf("twos: %4u (0x%02x)\n", zweier, zweier);
 	return EXIT_SUCCESS;
+
+	/*
+	 * 8 = 1000
+	 * 15 = 1111
+	 *
+	 */
 }
