@@ -9,25 +9,21 @@
 #define PARSE_ERROR -1
 #define GREGORIAN_CAL_START_YEAR 1583
 
-bool isValidInputInt(char *valueToParse, int *intResult, char *errorText);
+bool isValidInputInt(int intToVerify, char *errorText);
 
 bool isDateValid(Date *parsed_date);
 
-int validate_and_parse_date(int argc, char *argv[], Date *parsed_date) {
-    int day;
-    int monthPreChecked;
+int validate_and_parse_date(int scannedParams, int day, int monthPreChecked, int year, Date *parsed_date) {
     Month month;
-    int year;
 
-    if (argc != 4) {
+    if (scannedParams < 3 && scannedParams > 4) {
         (void) printf("Anzahl Argumente ungültig!\n");
         return PARSE_ERROR;
     }
 
-    //TODO Read via stdin -> scanf instead of args
-    if (isValidInputInt(argv[1], &day, "Tag") == false
-        || isValidInputInt(argv[2], &monthPreChecked, "Monat") == false
-        || isValidInputInt(argv[3], &year, "Jahr") == false) {
+    if (isValidInputInt(day, "Tag") == false
+        || isValidInputInt(monthPreChecked, "Monat") == false
+        || isValidInputInt(year, "Jahr") == false) {
         return PARSE_ERROR;
     }
 
@@ -81,9 +77,9 @@ bool isDateValid(Date *parsed_date) {
     return false;
 }
 
-bool isValidInputInt(char *valueToParse, int *intResult, char *errorText) {
-    if (sscanf(valueToParse, "%d", intResult) != 1 || *intResult <= 0) {
-        (void) printf("Argument '%s' ist keine Zahl oder negativ!\n", errorText);
+bool isValidInputInt(int intToVerify, char *errorText) {
+    if (intToVerify <= 0) {
+        (void) printf("Argument '%s' ist negativ!\n", errorText);
         return false;
     }
     return true;

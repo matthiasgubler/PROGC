@@ -17,6 +17,15 @@
 #include "process.h"
 #include "validation.h"
 
+#define EXIT_OK 0
+#define IO_ERROR 1
+#define BUFFER_ERROR 3
+
+#define CONSOLE_BUFFER_SIZE 256
+
+char cIO_OK = 0;
+char caInternalBuffer[CONSOLE_BUFFER_SIZE];
+
 /**
  * @brief Main entry point.
  * @param[in] argc  The size of the argv array.
@@ -28,16 +37,35 @@
  *                  EXIT_FAILURE (=1) if more than one argument is given.
  */
 int main(int argc, char *argv[]) {
-    Date parsed_date;
+    int day, month, year, daysToAdd;
 
-    if (validate_and_parse_date(argc, argv, &parsed_date) == 0) {
-        addDay(&parsed_date);
-        (void) printf("Neues Datum: %02d.%02d.%d\n", parsed_date.day, parsed_date.month, parsed_date.year);
-    } else {
-        (void) printf(
-                "Aufruf des Programmes wie folgt: \"./sst02-folgetag 12 01 1993\" für die Berechnung des Datums 12.01.1993!\n");
-        return EXIT_FAILURE;
-    }
+    do {
+        Date parsed_date;
+        (void) printf("\nEingabe des Datums im Format DD MM YYYY [Plus Anz Tage]\n");
 
-    return EXIT_SUCCESS;
+        if (fgets(caInternalBuffer, CONSOLE_BUFFER_SIZE, stdin) == NULL) {
+            exit(IO_ERROR);
+        }
+
+        int scannedParams = sscanf(caInternalBuffer ,"%d %d %d %d", &day, &month, &year, &daysToAdd);
+
+        if(scannedParams == EOF){
+            exit(BUFFER_ERROR);
+        }
+
+        if (validate_and_parse_date(scannedParams, day, month, year, &parsed_date) == 0) {
+            if (scannedParams == 4) {
+                addDays(&parsed_date, daysToAdd);
+            } else {
+                addDay(&parsed_date);
+            }
+
+            (void) printf("Neues Datum: %02d.%02d.%d\n", parsed_date.day, parsed_date.month, parsed_date.year);
+        } else {
+            (void) printf(
+                    "Eingabe des Datums wie folgt: \"12 01 1993\" für die Berechnung des Datums 12.01.1993!\n");
+        }
+    } while (cIO_OK == 0);
+
+    exit(EXIT_OK);
 }
