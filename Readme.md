@@ -1,4 +1,4 @@
-# Selbststudium Matthias Gubler & Daniele Colombo
+# Selbststudium Matthias Gubler (gublema6) & Daniele Colombo (colomdan)
 
 
 Der Code der einzelnen Aufgaben können hier gefunden werden:
