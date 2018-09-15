@@ -168,6 +168,10 @@ int readPoints(int *punkte) {
             return 0;
         }
     }
+    if (counter == 0) {
+        printf("Keine Punkte eingegeben");
+        return 0;
+    }
     return 1;
 }
 
