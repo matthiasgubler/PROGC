@@ -19,7 +19,9 @@ bool areEquals(Person *person1, Person *person2);
 
 void prettyPrintPerson(Person *person);
 
-Person * initializePerson();
+Person *initializePerson();
+
+int compareTo(Person *person1, Person *person2);
 
 void freePerson(Person *person);
 

@@ -73,6 +73,7 @@ int main(int argc, char *argv[]) {
             break;
             case Clear:
                 (void) printf("=====Clear=====\n");
+                (void) printf("#### ALLE PERSONEN GELÖSCHT ####\n");
                 clearList();
             break;
             case End:

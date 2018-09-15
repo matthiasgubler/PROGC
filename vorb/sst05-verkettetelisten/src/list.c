@@ -4,8 +4,9 @@
 
 #include "list.h"
 
+ListElementPtr searchInsertIndex(Person *person);
+
 ListElementPtr anchorListElementPtr;
-ListElementPtr currentElementPtr;
 
 int initList() {
     //Allocate Anchor Element
@@ -16,12 +17,13 @@ int initList() {
 
     anchorListElementPtr->next = anchorListElementPtr;
     anchorListElementPtr->previous = anchorListElementPtr;
-    currentElementPtr = anchorListElementPtr;
+
 
     return SUCCESS;
 }
 
 int addPerson(Person *person) {
+    ListElementPtr insertBeforePtr = searchInsertIndex(person);
     //Allocate new ListElement and Check for success
     ListElementPtr newElementPtr = (ListElementPtr) malloc(sizeof(ListElement));
     if (newElementPtr == NULL) {
@@ -31,24 +33,33 @@ int addPerson(Person *person) {
     //Set new Person Data
     newElementPtr->person = person;
 
-    //New person ist always the last element -> Set the next Ptr to the Anchor Element
-    newElementPtr->next = anchorListElementPtr;
-    anchorListElementPtr->previous = newElementPtr;
+    //Set the next and previous pointer for the new element
+    newElementPtr->next = insertBeforePtr;
+    newElementPtr->previous = insertBeforePtr->previous;
+    //Set the next pointer of the previous one to the new element
+    insertBeforePtr->previous->next = newElementPtr;
 
-    //Set the Pointer of the last element to the new element and vice versa -> overwrite the "currentElement"
-    currentElementPtr->next = newElementPtr;
-    newElementPtr->previous = currentElementPtr;
-    currentElementPtr = newElementPtr;
+    //Set the previous pointer of the followup person to the new element
+    insertBeforePtr->previous = newElementPtr;
 
     return SUCCESS;
 }
 
+ListElementPtr searchInsertIndex(Person *person) {
+    ListElementPtr resultListElementPtr = anchorListElementPtr->next;
+
+    while (compareTo(person, resultListElementPtr->person) > 0 && resultListElementPtr != anchorListElementPtr) {
+        resultListElementPtr = resultListElementPtr->next;
+    }
+    return resultListElementPtr;
+}
+
 void removePerson(Person *person) {
     ListElementPtr listElementToDelete = getListElementByPerson(person);
-    if(listElementToDelete != NULL){
+    if (listElementToDelete != NULL) {
         removeListElement(listElementToDelete);
-    }else{
-        (void)printf("Person nicht gefunden (NICHTS gelöscht)\n");
+    } else {
+        (void) printf("Person nicht gefunden (NICHTS gelöscht)\n");
     }
 }
 
@@ -61,15 +72,15 @@ void removeListElement(ListElementPtr listElementToRemove) {
     nextListElement->previous = previousListElement;
     free(listElementToRemove);
     free(listElementToRemove->person);
-
-    currentElementPtr = previousListElement;
 }
 
 void clearList() {
     ListElementPtr currentSearchPtr = anchorListElementPtr->next;
-    while (currentSearchPtr != anchorListElementPtr) {
-        removeListElement(currentSearchPtr);
-        currentSearchPtr = currentSearchPtr->next;
+    while (anchorListElementPtr != anchorListElementPtr->next) {
+        if (currentSearchPtr != anchorListElementPtr) {
+            removeListElement(currentSearchPtr);
+            currentSearchPtr = currentSearchPtr->next;
+        }
     }
 }
 
@@ -86,6 +97,10 @@ ListElementPtr getListElementByPerson(Person *person) {
 }
 
 void printCurrentList() {
+    if (anchorListElementPtr == anchorListElementPtr->next) {
+        (void) printf("#### LISTE LEER ####\n");
+    }
+
     ListElementPtr currentSearchPtr = anchorListElementPtr->next;
     while (currentSearchPtr != anchorListElementPtr) {
         prettyPrintPerson(currentSearchPtr->person);
