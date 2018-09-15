@@ -18,7 +18,6 @@ int initList() {
     anchorListElementPtr->next = anchorListElementPtr;
     anchorListElementPtr->previous = anchorListElementPtr;
 
-
     return SUCCESS;
 }
 
@@ -70,8 +69,8 @@ void removeListElement(ListElementPtr listElementToRemove) {
     //Forget the element to be removed in the chain
     previousListElement->next = nextListElement;
     nextListElement->previous = previousListElement;
-    free(listElementToRemove);
     free(listElementToRemove->person);
+    free(listElementToRemove);
 }
 
 void clearList() {
