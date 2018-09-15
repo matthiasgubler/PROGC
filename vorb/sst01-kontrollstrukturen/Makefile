@@ -1,5 +1,5 @@
 # what to produce
-TARGET        := bin/hello-world
+TARGET        := bin/kontrollstrukturen
 
 # implementation files
 SOURCES       := src/main.c
