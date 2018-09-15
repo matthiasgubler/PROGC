@@ -2,10 +2,10 @@
 // Created by Matthias Gubler on 14.09.18.
 //
 
-#include <stdbool.h>
-
 #ifndef PROGC_GLOBALS_H
 #define PROGC_GLOBALS_H
+
+#include <stdbool.h>
 
 typedef enum {
     Jan = 1, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec

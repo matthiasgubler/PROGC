@@ -276,7 +276,7 @@ static void test_addDays_subtract_100_days(void) {
  */
 int main(void) {
     // setup, run, teardown
-    TestMainBasic("Triangle", setup, teardown, test_invalid_dates, test_valid_dates, test_addDay_simple,
+    TestMainBasic("Folgetag", setup, teardown, test_invalid_dates, test_valid_dates, test_addDay_simple,
                   test_addDay_monthchange, test_addDay_monthyearchange, test_addDay_non_leap_year_monthchange,
                   test_addDay_leap_year_monthchange, test_addDays_100days_leap_year, test_addDays_100days,
                   test_addDays_subtract, test_addDays_subtract_feb_month_change, test_addDays_subtract_mar_month_change,

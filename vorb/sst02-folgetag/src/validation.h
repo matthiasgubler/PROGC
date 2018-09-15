@@ -2,11 +2,10 @@
 // Created by Matthias Gubler on 14.09.18.
 //
 
-#include "globals.h"
-
 #ifndef PROGC_VALIDATION_H
 #define PROGC_VALIDATION_H
 
+#include "globals.h"
 
 #define NO_PARSE_ERROR 0
 #define PARAM_COUNT_ERROR -1
