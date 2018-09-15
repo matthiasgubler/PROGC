@@ -56,7 +56,7 @@ test: $(TSTTARGET)
 	@echo "#### $< executed ####"
 
 $(TSTTARGET): $(FULLTARGET) $(TSTOBJECTS)
-	$(LINK.c) -o $(TSTTARGET) $(TSTOBJECTS) $(OBJECTS) -L$(CUNITLIBDIR) -lcunit -L$(TSTLIBDIR) -lprogctest
+	$(LINK.c) -o $(TSTTARGET) $(TSTOBJECTS) $(OBJECTS) -L$(CUNITLIBDIR) -lcunit -L$(TSTLIBDIR) -lprogctest -lm
 	@echo "#### $@ built ####"
 
 

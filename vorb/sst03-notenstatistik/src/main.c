@@ -41,7 +41,7 @@ int main(int argc, char* argv[])
     }
     (void)calculateStatistics(punkte, noten, minimum6, &counter);
 
-    moreEqualFour = counter.vierer + counter.fuenfer + counter.sechser;
+    moreEqualFour = calcMoreThan4(&counter);
     (void) printf("Statistics (%d Students, %d points needed for mark 6):\n", countStudents(&counter), minimum6);
     (void) printf("Mark 6: %d\n", counter.sechser);
     (void) printf("Mark 5: %d\n", counter.fuenfer);
@@ -50,10 +50,14 @@ int main(int argc, char* argv[])
     (void) printf("Mark 2: %d\n", counter.zweier);
     (void) printf("Mark 1: %d\n\n", counter.einer);
     (void) printf("Best mark: \t\t%d\n", findBestMark(&counter));
-    (void) printf("Worst mark: \t%d\n", findWorstMark(&counter));
-    (void) printf("Average mark: \t%0.2f\n", calcAverage(&counter));
+    (void) printf("Worst mark: \t\t%d\n", findWorstMark(&counter));
+    (void) printf("Average mark: \t\t%0.2f\n", calcAverage(&counter));
     (void) printf("Mark >= 4: \t\t%d\n", moreEqualFour);
     return EXIT_SUCCESS;
+}
+
+int calcMoreThan4(const struct MarkCounter* counter) {
+ return (*counter).vierer + (*counter).fuenfer + (*counter).sechser;
 }
 
 
@@ -76,41 +80,41 @@ int countStudents(const struct MarkCounter* counter) {
 }
 
 int findWorstMark(const struct MarkCounter* counter) {
-    if ((*counter).zweier > 0) {
-        return 2;
-    }
-    if ((*counter).dreier > 0) {
-        return 3;
-    }
-    if ((*counter).vierer > 0) {
-        return 4;
-    }
-    if ((*counter).fuenfer > 0) {
-        return 5;
-    }
-    if ((*counter).sechser > 0) {
-        return 6;
-    }
-    return 1;
-}
-
-int findBestMark(const struct MarkCounter* counter) {
-    if ((*counter).fuenfer > 0) {
-        return 5;
-    }
-    if ((*counter).vierer > 0) {
-        return 4;
-    }
-    if ((*counter).dreier > 0) {
-        return 3;
-    }
-    if ((*counter).zweier > 0) {
-        return 2;
-    }
     if ((*counter).einer > 0) {
         return 1;
     }
+    if ((*counter).zweier > 0) {
+        return 2;
+    }
+    if ((*counter).dreier > 0) {
+        return 3;
+    }
+    if ((*counter).vierer > 0) {
+        return 4;
+    }
+    if ((*counter).fuenfer > 0) {
+        return 5;
+    }
     return 6;
+}
+
+int findBestMark(const struct MarkCounter* counter) {
+    if ((*counter).sechser > 0) {
+        return 6;
+    }
+    if ((*counter).fuenfer > 0) {
+        return 5;
+    }
+    if ((*counter).vierer > 0) {
+        return 4;
+    }
+    if ((*counter).dreier > 0) {
+        return 3;
+    }
+    if ((*counter).zweier > 0) {
+        return 2;
+    }
+    return 1;
 }
 
 int calculateStatistics(const int *punkte, int *noten, int minimum6, struct MarkCounter *counter) {

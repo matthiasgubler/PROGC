@@ -18,6 +18,7 @@ int findBestMark(const struct MarkCounter* counter);
 int countStudents(const struct MarkCounter* counter);
 double calcAverage(const struct MarkCounter* counter);
 int readPoints(int *punkte);
+int calcMoreThan4(const struct MarkCounter* counter);
 int readMinimum(int *minimum);
 int calcNote(int punkte, int punkteFuer6);
 int calculateStatistics(const int *punkte, int *noten, int minimum6, struct MarkCounter *counter);
