@@ -26,6 +26,7 @@
 /// @brief The name of the STDERR text file.
 #define ERRFILE "stderr.txt"
 #define INFILE_SIMPLE_EXIT "stim-simple-exit.input"
+#define INFILE_SIMPLE_ADD_REMOVE "stim-simple-add-remove.input"
 
 #ifndef TARGET // must be given by the make file --> see test target
 #error missing TARGET define
@@ -211,15 +212,65 @@ static void test_list_clearList(void) {
     CU_ASSERT_EQUAL(resultPersonAfterRemove2, NULL);
 }
 
-
-static void test_test(void) {
+static void test_exit_application(void) {
     // arrange
     const char *out_txt[] = {
+            "\nEingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), C(lear), E(nd)\nUngueltige Eingabe\n"
             "\nEingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), C(lear), E(nd)\n=====Good Bye=====\n"
     };
     // act
     int exit_code = system(XSTR(TARGET)
     " 1>" OUTFILE " 2>" ERRFILE " <" INFILE_SIMPLE_EXIT);
+    // assert
+    CU_ASSERT_EQUAL(exit_code, 0);
+    assert_lines(OUTFILE, out_txt, sizeof(out_txt) / sizeof(*out_txt));
+}
+
+static void test_simple_add_remove(void) {
+    // arrange
+    const char *out_txt[] = {
+            "\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), C(lear), E(nd)\n"
+            ,"=====Insert=====\n"
+            ,"Neue Person erfassen\n"
+            ,"Name: \n"
+            ,"Vorname: \n"
+            ,"Alter: \n"
+            ,"Neue Person wird hinzugefuegt\n"
+            ,"Gubler Matthias, 24\n"
+            ,"\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), C(lear), E(nd)\n"
+            ,"=====Show=====\n"
+            ,"Gubler Matthias, 24\n"
+            ,"\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), C(lear), E(nd)\n"
+            ,"=====Insert=====\n"
+            ,"Neue Person erfassen\n"
+            ,"Name: \n"
+            ,"Vorname: \n"
+            ,"Alter: \n"
+            ,"Neue Person wird hinzugefuegt\n"
+            ,"Colombo Daniele, 29\n"
+            ,"\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), C(lear), E(nd)\n"
+            ,"=====Show=====\n"
+            ,"Colombo Daniele, 29\n"
+            ,"Gubler Matthias, 24\n"
+            ,"\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), C(lear), E(nd)\n"
+            ,"=====Clear=====\n"
+            ,"#### ALLE PERSONEN GELOESCHT ####\n"
+            ,"\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), C(lear), E(nd)\n"
+            ,"=====Show=====\n"
+            ,"#### LISTE LEER ####\n"
+            ,"\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), C(lear), E(nd)\n"
+            ,"=====Good Bye====="
+    };
+    // act
+    int exit_code = system(XSTR(TARGET)
+    " 1>" OUTFILE " 2>" ERRFILE " <" INFILE_SIMPLE_ADD_REMOVE);
     // assert
     CU_ASSERT_EQUAL(exit_code, 0);
     assert_lines(OUTFILE, out_txt, sizeof(out_txt) / sizeof(*out_txt));
@@ -232,7 +283,7 @@ int main(void) {
     // setup, run, teardown
     TestMainBasic("Verketteteliste", setup, teardown, test_person_compareTo, test_person_areEquals,
                   test_list_addPerson_removePerson_one, test_list_addPerson_removePerson_multiple,
-                  test_list_clearList_empty, test_list_clearList, test_test
+                  test_list_clearList_empty, test_list_clearList, test_exit_application, test_simple_add_remove
 
     );
 }

@@ -50,7 +50,7 @@ int main(int argc, char *argv[]) {
                     exit(EXIT_ERROR);
                 }
                 if(createPersonWizard("Neue Person erfassen\n", person) == 0){
-                    (void)printf("Neue Person wird hinzugefügt\n");
+                    (void)printf("Neue Person wird hinzugefuegt\n");
                     prettyPrintPerson(person);
                     addPerson(person);
                 }else{
@@ -61,8 +61,8 @@ int main(int argc, char *argv[]) {
             case Remove:
                 (void) printf("=====Remove=====\n");
                 Person personToDelete;
-                if(createPersonWizard("Zu löschende Person angeben\n", &personToDelete) == 0){
-                    (void)printf("Person wird gelöscht:\n");
+                if(createPersonWizard("Zu loeschende Person angeben\n", &personToDelete) == 0){
+                    (void)printf("Person wird geloescht:\n");
                     prettyPrintPerson(&personToDelete);
                     removePerson(&personToDelete);
                 }
@@ -73,7 +73,7 @@ int main(int argc, char *argv[]) {
             break;
             case Clear:
                 (void) printf("=====Clear=====\n");
-                (void) printf("#### ALLE PERSONEN GELÖSCHT ####\n");
+                (void) printf("#### ALLE PERSONEN GELOESCHT ####\n");
                 clearList();
             break;
             case End:
@@ -81,7 +81,7 @@ int main(int argc, char *argv[]) {
                 run = false;
             break;
             default:
-                (void) printf("Ungültige Eingabe\n");
+                (void) printf("Ungueltige Eingabe\n");
             break;
         }
     } while (run);
