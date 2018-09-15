@@ -15,6 +15,39 @@
 #include <stdlib.h>
 #include <math.h>
 
+
+
+/**
+ * returns the value of a specific bit. if the bit is not set it return 0;
+ *
+ * f.E
+ * calcBitValue(9, 3) =
+ * 1001 (0)
+ * 1000 (1<<(pos))
+ * ----
+ * 1000 (8)
+ *
+ * @param var
+ * @param pos
+ * @return
+ */
+int calcBitValue(int var, int pos) {
+	return ((var) & (1<<(pos)));
+}
+
+int executeAssignment1(int arg1);
+int executeAssignment2(int arg1, int arg2);
+
+struct Assignment1Result {
+    unsigned char value;
+    signed char signedValue;
+    unsigned char addValue;
+    signed char einer;
+    signed char zweier;
+};
+
+struct Assignment1Result createAssignment1Result(int arg1);
+
 /**
  * @brief Main entry point.
  * @param[in] argc  The size of the argv array.
@@ -25,18 +58,9 @@
  * @returns Returns EXIT_SUCCESS (=0) on success,
  *                  EXIT_FAILURE (=1) if more than one argument is given.
  */
-
-
-int calcBitValue(int var, int pos) {
-	return ((var) & (1<<(pos)));
-}
-
-int executeOneArgument(int arg1);
-int executeTwoArguments(int arg1, int arg2);
-
 int main(int argc, char* argv[])
 {
-	double MAX_VALUE = pow(2.0, sizeof(char) * 8) - 1;
+	const double MAX_VALUE = pow(2.0, sizeof(char) * 8) - 1;
 	int arg1;
 	int arg2;
 
@@ -45,25 +69,24 @@ int main(int argc, char* argv[])
 		return EXIT_FAILURE;
 	}
 	if (sscanf(argv[1], "%d", &arg1) < 1 || arg1 > MAX_VALUE) {
-		(void)printf("Argument1: ungültiger Wert");
+		(void)printf("Argument1: invalid value");
 		return EXIT_FAILURE;
 	}
-
-	if (argc == 3) {
-		if (sscanf(argv[2], "%d", &arg2) < 1 || arg1 < 7) {
-			(void)printf("Argument2: ungültiger Wert");
+	if (argc > 2) {
+		if (sscanf(argv[2], "%d", &arg2) < 1 || arg2 > 7) {
+			(void)printf("Argument2: invalid value");
 			return EXIT_FAILURE;
 		}
 	}
 	if (argc == 2) {
-		executeOneArgument(arg1);
+		executeAssignment1(arg1);
 	} else {
-		executeTwoArguments(arg1, arg2);
+		executeAssignment2(arg1, arg2);
 	}
-
+	return EXIT_SUCCESS;
 }
 
-int executeTwoArguments(int arg1, int arg2) {
+int executeAssignment2(int arg1, int arg2) {
 	int bitValue = calcBitValue(arg1, arg2);
 	int activateBitValue = arg1 | 1<<(arg2);
 	int flipped = bitValue > 0 ? arg1-bitValue : activateBitValue;
@@ -74,17 +97,22 @@ int executeTwoArguments(int arg1, int arg2) {
 	(void)printf("bit %d flipped: \t: %d\t0x%02x\t0%o\n", arg2, flipped, flipped, flipped);
 }
 
+struct Assignment1Result createAssignment1Result(int arg1) {
+    struct Assignment1Result result;
+    result.value = (unsigned char)arg1;
+    result.einer = (~result.value);
+    result.signedValue = result.value;
+    result.addValue = (unsigned char) (result.value + 255);
+    result.zweier = (signed char) (result.einer + 1);
+    return result;
+}
 
-int executeOneArgument(int arg1) {
-	unsigned char value = (unsigned char)arg1;
-	signed char signedValue = value;
-	unsigned char addValue = value+255;
-	signed char einer = (~value);
-	signed char zweier = einer + 1;
-	(void)printf("unsigned:\t %4u (0x%02x)\n", value, value);
-	(void)printf("signed:\t\t %4d (0x%02x)\n", signedValue, signedValue);
-	(void)printf("+255:\t\t %4d (0x%02x)\n", addValue, addValue);
-	(void)printf("ones:\t\t %4d (0x%02x)\n", einer, einer);
-	(void)printf("twos: \t\t %4d (0x%02x)\n", zweier, zweier);
+int executeAssignment1(int arg1) {
+    struct Assignment1Result result = createAssignment1Result(arg1);
+	(void)printf("unsigned:\t %4u (0x%02x)\n", result.value, result.value);
+	(void)printf("signed:\t\t %4d (0x%02x)\n", result.signedValue, result.signedValue);
+	(void)printf("+255:\t\t %4d (0x%02x)\n", result.addValue, result.addValue);
+	(void)printf("ones:\t\t %4d (0x%02x)\n", result.einer, result.einer);
+	(void)printf("twos: \t\t %4d (0x%02x)\n", result.zweier, result.zweier);
 	return EXIT_SUCCESS;
 }

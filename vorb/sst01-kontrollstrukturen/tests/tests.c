@@ -40,38 +40,45 @@ static int teardown(void)
 	return 0; // success
 }
 
+struct Assignment1Result {
+    unsigned char value;
+    signed char signedValue;
+    unsigned char addValue;
+    signed char einer;
+    signed char zweier;
+};
+
+struct Assignment1Result createAssignment1Result(int arg1);
 
 // tests
 static void test_main_with_zero_args(void)
 {
 	// arrange
-	const char *out_txt[] = { "Program name: " XSTR(TARGET) "\n", "Hello World!\n" };
+	const char *out_txt[] = { "Keine Argumente" };
 	const char *err_txt[] = { };
 	// act
 	int exit_code = system(XSTR(TARGET) " 1>" OUTFILE " 2>" ERRFILE);
 	// assert
-	CU_ASSERT_EQUAL(exit_code, 0);
+	CU_ASSERT_EQUAL(exit_code, (1 << 8));
 	assert_lines(OUTFILE, out_txt, sizeof(out_txt)/sizeof(*out_txt));
 	assert_lines(ERRFILE, err_txt, sizeof(err_txt)/sizeof(*err_txt));
 }
 
 static void test_main_with_one_arg(void)
 {
-	// arrange
-	const char *out_txt[] = { "Program name: " XSTR(TARGET) "\n", "Hello everybody\n" };
-	const char *err_txt[] = { };
-	// act
-	int exit_code = system(XSTR(TARGET) " everybody 1>" OUTFILE " 2>" ERRFILE);
-	// assert
-	CU_ASSERT_EQUAL(exit_code, 0);
-	assert_lines(OUTFILE, out_txt, sizeof(out_txt)/sizeof(*out_txt));
-	assert_lines(ERRFILE, err_txt, sizeof(err_txt)/sizeof(*err_txt));
+    struct Assignment1Result result = createAssignment1Result(13);
+    CU_ASSERT_EQUAL(result.value, 13);
+    CU_ASSERT_EQUAL(result.signedValue, 13);
+    CU_ASSERT_EQUAL(result.addValue, 12);
+    CU_ASSERT_EQUAL(result.einer, -14);
+    CU_ASSERT_EQUAL(result.zweier, -13);
+
 }
 
-static void test_main_with_two_args(void)
+static void test_main_with_two_invalid_args(void)
 {
 	// arrange
-	const char *out_txt[] = { "Program name: " XSTR(TARGET) "\n" };
+	const char *out_txt[] = { "Argument1: invalid value" };
 	const char *err_txt[] = { };
 	// act
 	int exit_code = system(XSTR(TARGET) " A B 1>" OUTFILE " 2>" ERRFILE);
@@ -79,6 +86,19 @@ static void test_main_with_two_args(void)
 	CU_ASSERT_EQUAL(exit_code, (1 << 8));
 	assert_lines(OUTFILE, out_txt, sizeof(out_txt)/sizeof(*out_txt));
 	assert_lines(ERRFILE, err_txt, sizeof(err_txt)/sizeof(*err_txt));
+}
+
+static void test_main_with_two_invalid_args_2(void)
+{
+    // arrange
+    const char *out_txt[] = { "Argument2: invalid value" };
+    const char *err_txt[] = { };
+    // act
+    int exit_code = system(XSTR(TARGET) " 130 19 1>" OUTFILE " 2>" ERRFILE);
+    // assert
+    CU_ASSERT_EQUAL(exit_code, (1 << 8));
+    assert_lines(OUTFILE, out_txt, sizeof(out_txt)/sizeof(*out_txt));
+    assert_lines(ERRFILE, err_txt, sizeof(err_txt)/sizeof(*err_txt));
 }
 
 /**
@@ -90,6 +110,7 @@ int main(void)
 	TestMainBasic("Hello World", setup, teardown
 				  , test_main_with_zero_args
 				  , test_main_with_one_arg
-				  , test_main_with_two_args
+				  , test_main_with_two_invalid_args
+				  , test_main_with_two_invalid_args_2
 				  );
 }
