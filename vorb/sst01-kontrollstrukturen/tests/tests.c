@@ -15,6 +15,7 @@
 #include <stdlib.h>
 #include "CUnit/Basic.h"
 #include "test_utils.h"
+#include "../src/sst01.h"
 
 #ifndef TARGET // must be given by the make file --> see test target
 #error missing TARGET define
@@ -39,16 +40,6 @@ static int teardown(void)
 	// Especially: do not remove result files - they are removed in int setup(void) *before* running a test.
 	return 0; // success
 }
-
-struct Assignment1Result {
-    unsigned char value;
-    signed char signedValue;
-    unsigned char addValue;
-    signed char einer;
-    signed char zweier;
-};
-
-struct Assignment1Result createAssignment1Result(int arg1);
 
 // tests
 static void test_main_with_zero_args(void)

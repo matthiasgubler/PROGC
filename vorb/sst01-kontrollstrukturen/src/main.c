@@ -14,6 +14,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include "sst01.h"
 
 
 
@@ -34,19 +35,6 @@
 int calcBitValue(int var, int pos) {
 	return ((var) & (1<<(pos)));
 }
-
-int executeAssignment1(int arg1);
-int executeAssignment2(int arg1, int arg2);
-
-struct Assignment1Result {
-    unsigned char value;
-    signed char signedValue;
-    unsigned char addValue;
-    signed char einer;
-    signed char zweier;
-};
-
-struct Assignment1Result createAssignment1Result(int arg1);
 
 /**
  * @brief Main entry point.
