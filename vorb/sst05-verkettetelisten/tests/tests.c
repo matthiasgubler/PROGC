@@ -20,12 +20,22 @@
 #include "../src/person.h"
 #include "../src/menu.h"
 
+
+/// @brief The name of the STDOUT text file.
+#define OUTFILE "stdout.txt"
+/// @brief The name of the STDERR text file.
+#define ERRFILE "stderr.txt"
+#define INFILE_SIMPLE_EXIT "stim-simple-exit.input"
+
 #ifndef TARGET // must be given by the make file --> see test target
 #error missing TARGET define
 #endif
 
 // setup & cleanup
 static int setup(void) {
+
+    remove_file_if_exists(OUTFILE);
+    remove_file_if_exists(ERRFILE);
     return 0; // success
 }
 
@@ -201,6 +211,20 @@ static void test_list_clearList(void) {
     CU_ASSERT_EQUAL(resultPersonAfterRemove2, NULL);
 }
 
+
+static void test_test(void) {
+    // arrange
+    const char *out_txt[] = {
+            "\nEingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), C(lear), E(nd)\n=====Good Bye=====\n"
+    };
+    // act
+    int exit_code = system(XSTR(TARGET)
+    " 1>" OUTFILE " 2>" ERRFILE " <" INFILE_SIMPLE_EXIT);
+    // assert
+    CU_ASSERT_EQUAL(exit_code, 0);
+    assert_lines(OUTFILE, out_txt, sizeof(out_txt) / sizeof(*out_txt));
+}
+
 /**
  * @brief Registers and runs the tests.
  */
@@ -208,7 +232,7 @@ int main(void) {
     // setup, run, teardown
     TestMainBasic("Verketteteliste", setup, teardown, test_person_compareTo, test_person_areEquals,
                   test_list_addPerson_removePerson_one, test_list_addPerson_removePerson_multiple,
-                  test_list_clearList_empty, test_list_clearList
+                  test_list_clearList_empty, test_list_clearList, test_test
 
     );
 }
