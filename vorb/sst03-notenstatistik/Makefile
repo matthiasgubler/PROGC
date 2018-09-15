@@ -1,5 +1,5 @@
 # what to produce
-TARGET        := bin/hello-world
+TARGET        := bin/mark-stats
 
 # implementation files
 SOURCES       := src/main.c
@@ -30,7 +30,7 @@ FULLTARGET    := $(CURDIR)/$(TARGET)
 CC            = gcc
 CFLAGS        = -std=c99 -Wall -g
 CPPFLAGS      = -MD -Isrc -Itests -I$(TSTINCDIR) -I$(CUNITINCDIR) -DTARGET=$(FULLTARGET)
-LDFLAGS       = -static -z muldefs 
+LDFLAGS       = -static -z muldefs
 
 # targets which get always visited (without checking any up-to-date state)
 .PHONY: default clean test doc mkdir
@@ -40,7 +40,7 @@ default: $(FULLTARGET)
 	@echo "#### $< built ####"
 
 $(FULLTARGET): mkdir $(OBJECTS) Makefile
-	$(LINK.c) -o $@ $(OBJECTS)
+	$(LINK.c) -o $@ $(OBJECTS) -lm
 
 clean:
 	$(RM) $(TARGET) $(OBJECTS) $(DEPS) $(TSTTARGET) $(TSTOBJECTS) $(TSTDEPS) $(wildcard */*~ *~ tests/*.txt)
