@@ -49,7 +49,7 @@ int main(int argc, char *argv[]) {
                     (void) printf("Could not allocate Memory for Person");
                     exit(EXIT_ERROR);
                 }
-                if(createPersonWizard(person) == 0){
+                if(createPersonWizard("Neue Person erfassen\n", person) == 0){
                     (void)printf("Neue Person wird hinzugefügt\n");
                     prettyPrintPerson(person);
                     addPerson(person);
@@ -60,6 +60,12 @@ int main(int argc, char *argv[]) {
             break;
             case Remove:
                 (void) printf("=====Remove=====\n");
+                Person personToDelete;
+                if(createPersonWizard("Zu löschende Person angeben\n", &personToDelete) == 0){
+                    (void)printf("Person wird gelöscht:\n");
+                    prettyPrintPerson(&personToDelete);
+                    removePerson(&personToDelete);
+                }
             break;
             case Show:
                 (void) printf("=====Show=====\n");

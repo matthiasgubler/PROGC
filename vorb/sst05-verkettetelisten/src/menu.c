@@ -31,12 +31,12 @@ Menu showMenuAndGetSelectedFunction() {
     }
 }
 
-int createPersonWizard(Person * person) {
+int createPersonWizard(const char * wizardText, Person * person) {
     char name[20];
     char firstname[20];
     int age;
 
-    (void) printf("Neue Person erfassen\n");
+    (void) printf("%s", wizardText);
     (void) printf("Name: ");
     if (readInput("%19s", &name) != 1) {
         (void)printf("Ungültige Eingabe für Name\n");

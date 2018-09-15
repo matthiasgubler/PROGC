@@ -15,6 +15,6 @@ typedef enum {
 } Menu;
 
 Menu showMenuAndGetSelectedFunction();
-int createPersonWizard(Person * person);
+int createPersonWizard(const char * wizardText, Person * person);
 
 #endif //PROGC_MENU_H

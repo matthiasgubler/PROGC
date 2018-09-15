@@ -44,7 +44,12 @@ int addPerson(Person *person) {
 }
 
 void removePerson(Person *person) {
-    removeListElement(getListElementByPerson(person));
+    ListElementPtr listElementToDelete = getListElementByPerson(person);
+    if(listElementToDelete != NULL){
+        removeListElement(listElementToDelete);
+    }else{
+        (void)printf("Person nicht gefunden (NICHTS gelöscht)\n");
+    }
 }
 
 void removeListElement(ListElementPtr listElementToRemove) {
