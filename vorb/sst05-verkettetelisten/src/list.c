@@ -58,7 +58,7 @@ void removePerson(Person *person) {
     if (listElementToDelete != NULL) {
         removeListElement(listElementToDelete);
     } else {
-        (void) printf("Person nicht gefunden (NICHTS gelöscht)\n");
+        (void) printf("Person nicht gefunden (NICHTS geloescht)\n");
     }
 }
 

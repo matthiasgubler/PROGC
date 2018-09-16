@@ -26,7 +26,11 @@
 /// @brief The name of the STDERR text file.
 #define ERRFILE "stderr.txt"
 #define INFILE_SIMPLE_EXIT "stim-simple-exit.input"
-#define INFILE_SIMPLE_ADD_REMOVE "stim-simple-add-remove.input"
+#define INFILE_SIMPLE_ADD_CLEAR "stim-simple-add-clear.input"
+#define INFILE_SORTING_TEST "stim-sorting-test.input"
+#define INFILE_INSERT_INPUT_VALIDATION "stim-insert-input-validation.input"
+#define INFILE_CLEAR_EMPTY "stim-clear-empty.input"
+#define INFILE_ADD_REMOVE "stim-add-remove.input"
 
 #ifndef TARGET // must be given by the make file --> see test target
 #error missing TARGET define
@@ -219,14 +223,181 @@ static void test_exit_application(void) {
             "\nEingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), C(lear), E(nd)\n=====Good Bye=====\n"
     };
     // act
-    int exit_code = system(XSTR(TARGET)
+    int
+    exit_code = system(XSTR(TARGET)
     " 1>" OUTFILE " 2>" ERRFILE " <" INFILE_SIMPLE_EXIT);
     // assert
     CU_ASSERT_EQUAL(exit_code, 0);
     assert_lines(OUTFILE, out_txt, sizeof(out_txt) / sizeof(*out_txt));
 }
 
-static void test_simple_add_remove(void) {
+static void test_simple_add_clear(void) {
+    // arrange
+    const char *out_txt[] = {
+            "\n", "Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), C(lear), E(nd)\n",
+            "=====Insert=====\n", "Neue Person erfassen\n", "Name: \n", "Vorname: \n", "Alter: \n",
+            "Neue Person wird hinzugefuegt\n", "Gubler Matthias, 24\n", "\n",
+            "Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), C(lear), E(nd)\n", "=====Show=====\n",
+            "Gubler Matthias, 24\n", "\n",
+            "Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), C(lear), E(nd)\n", "=====Insert=====\n",
+            "Neue Person erfassen\n", "Name: \n", "Vorname: \n", "Alter: \n", "Neue Person wird hinzugefuegt\n",
+            "Colombo Daniele, 29\n", "\n",
+            "Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), C(lear), E(nd)\n", "=====Show=====\n",
+            "Colombo Daniele, 29\n", "Gubler Matthias, 24\n", "\n",
+            "Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), C(lear), E(nd)\n", "=====Clear=====\n",
+            "#### ALLE PERSONEN GELOESCHT ####\n", "\n",
+            "Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), C(lear), E(nd)\n", "=====Show=====\n",
+            "#### LISTE LEER ####\n", "\n",
+            "Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), C(lear), E(nd)\n", "=====Good Bye=====\n"
+    };
+    // act
+    int
+    exit_code = system(XSTR(TARGET)
+    " 1>" OUTFILE " 2>" ERRFILE " <" INFILE_SIMPLE_ADD_CLEAR);
+    // assert
+    CU_ASSERT_EQUAL(exit_code, 0);
+    assert_lines(OUTFILE, out_txt, sizeof(out_txt) / sizeof(*out_txt));
+}
+
+static void test_check_sorting(void) {
+    // arrange
+    const char *out_txt[] = {
+            "\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), C(lear), E(nd)\n"
+            ,"=====Insert=====\n"
+            ,"Neue Person erfassen\n"
+            ,"Name: \n"
+            ,"Vorname: \n"
+            ,"Alter: \n"
+            ,"Neue Person wird hinzugefuegt\n"
+            ,"XXX BBB, 24\n"
+            ,"\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), C(lear), E(nd)\n"
+            ,"=====Insert=====\n"
+            ,"Neue Person erfassen\n"
+            ,"Name: \n"
+            ,"Vorname: \n"
+            ,"Alter: \n"
+            ,"Neue Person wird hinzugefuegt\n"
+            ,"AAA BBB, 30\n"
+            ,"\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), C(lear), E(nd)\n"
+            ,"=====Insert=====\n"
+            ,"Neue Person erfassen\n"
+            ,"Name: \n"
+            ,"Vorname: \n"
+            ,"Alter: \n"
+            ,"Neue Person wird hinzugefuegt\n"
+            ,"BBB BBB, 22\n"
+            ,"\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), C(lear), E(nd)\n"
+            ,"=====Insert=====\n"
+            ,"Neue Person erfassen\n"
+            ,"Name: \n"
+            ,"Vorname: \n"
+            ,"Alter: \n"
+            ,"Neue Person wird hinzugefuegt\n"
+            ,"AAA BBB, 31\n"
+            ,"\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), C(lear), E(nd)\n"
+            ,"=====Insert=====\n"
+            ,"Neue Person erfassen\n"
+            ,"Name: \n"
+            ,"Vorname: \n"
+            ,"Alter: \n"
+            ,"Neue Person wird hinzugefuegt\n"
+            ,"ZZZ KKK, 21\n"
+            ,"\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), C(lear), E(nd)\n"
+            ,"=====Show=====\n"
+            ,"AAA BBB, 30\n"
+            ,"AAA BBB, 31\n"
+            ,"BBB BBB, 22\n"
+            ,"XXX BBB, 24\n"
+            ,"ZZZ KKK, 21\n"
+            ,"\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), C(lear), E(nd)\n"
+            ,"=====Good Bye=====\n"
+    };
+    // act
+    int
+    exit_code = system(XSTR(TARGET)
+    " 1>" OUTFILE " 2>" ERRFILE " <" INFILE_SORTING_TEST);
+    // assert
+    CU_ASSERT_EQUAL(exit_code, 0);
+    assert_lines(OUTFILE, out_txt, sizeof(out_txt) / sizeof(*out_txt));
+}
+
+static void test_insert_input_validation(void) {
+    // arrange
+    const char *out_txt[] = {
+            "\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), C(lear), E(nd)\n"
+            ,"=====Insert=====\n"
+            ,"Neue Person erfassen\n"
+            ,"Name: \n"
+            ,"Vorname: \n"
+            ,"Alter: \n"
+            ,"Neue Person wird hinzugefuegt\n"
+            ,"1234567890123456789 1234567890123456789, 30\n"
+            ,"\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), C(lear), E(nd)\n"
+            ,"=====Show=====\n"
+            ,"1234567890123456789 1234567890123456789, 30\n"
+            ,"\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), C(lear), E(nd)\n"
+            ,"=====Insert=====\n"
+            ,"Neue Person erfassen\n"
+            ,"Name: \n"
+            ,"Vorname: \n"
+            ,"Alter: Ungueltige Eingabe fuer Alter\n"
+            ,"Abbruch\n"
+            ,"\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), C(lear), E(nd)\n"
+            ,"=====Show=====\n"
+            ,"1234567890123456789 1234567890123456789, 30\n"
+            ,"\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), C(lear), E(nd)\n"
+            ,"=====Good Bye=====\n"
+    };
+    // act
+    int
+    exit_code = system(XSTR(TARGET)
+    " 1>" OUTFILE " 2>" ERRFILE " <" INFILE_INSERT_INPUT_VALIDATION);
+    // assert
+    CU_ASSERT_EQUAL(exit_code, 0);
+    assert_lines(OUTFILE, out_txt, sizeof(out_txt) / sizeof(*out_txt));
+}
+
+static void test_clear_empty(void) {
+    // arrange
+    const char *out_txt[] = {
+            "\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), C(lear), E(nd)\n"
+            ,"=====Show=====\n"
+            ,"#### LISTE LEER ####\n"
+            ,"\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), C(lear), E(nd)\n"
+            ,"=====Clear=====\n"
+            ,"#### ALLE PERSONEN GELOESCHT ####\n"
+            ,"\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), C(lear), E(nd)\n"
+            ,"=====Show=====\n"
+            ,"#### LISTE LEER ####\n"
+            ,"\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), C(lear), E(nd)\n"
+            ,"=====Good Bye=====\n"
+    };
+    // act
+    int
+    exit_code = system(XSTR(TARGET)
+    " 1>" OUTFILE " 2>" ERRFILE " <" INFILE_CLEAR_EMPTY);
+    // assert
+    CU_ASSERT_EQUAL(exit_code, 0);
+    assert_lines(OUTFILE, out_txt, sizeof(out_txt) / sizeof(*out_txt));
+}
+
+static void test_add_remove(void) {
     // arrange
     const char *out_txt[] = {
             "\n"
@@ -244,33 +415,39 @@ static void test_simple_add_remove(void) {
             ,"Gubler Matthias, 24\n"
             ,"\n"
             ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), C(lear), E(nd)\n"
-            ,"=====Insert=====\n"
-            ,"Neue Person erfassen\n"
+            ,"=====Remove=====\n"
+            ,"Zu loeschende Person angeben\n"
             ,"Name: \n"
             ,"Vorname: \n"
             ,"Alter: \n"
-            ,"Neue Person wird hinzugefuegt\n"
+            ,"Person wird geloescht:\n"
             ,"Colombo Daniele, 29\n"
+            ,"Person nicht gefunden (NICHTS geloescht)\n"
             ,"\n"
             ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), C(lear), E(nd)\n"
             ,"=====Show=====\n"
-            ,"Colombo Daniele, 29\n"
             ,"Gubler Matthias, 24\n"
             ,"\n"
             ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), C(lear), E(nd)\n"
-            ,"=====Clear=====\n"
-            ,"#### ALLE PERSONEN GELOESCHT ####\n"
+            ,"=====Remove=====\n"
+            ,"Zu loeschende Person angeben\n"
+            ,"Name: \n"
+            ,"Vorname: \n"
+            ,"Alter: \n"
+            ,"Person wird geloescht:\n"
+            ,"Gubler Matthias, 24\n"
             ,"\n"
             ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), C(lear), E(nd)\n"
             ,"=====Show=====\n"
             ,"#### LISTE LEER ####\n"
             ,"\n"
             ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), C(lear), E(nd)\n"
-            ,"=====Good Bye====="
+            ,"=====Good Bye=====\n"
     };
     // act
-    int exit_code = system(XSTR(TARGET)
-    " 1>" OUTFILE " 2>" ERRFILE " <" INFILE_SIMPLE_ADD_REMOVE);
+    int
+    exit_code = system(XSTR(TARGET)
+    " 1>" OUTFILE " 2>" ERRFILE " <" INFILE_ADD_REMOVE);
     // assert
     CU_ASSERT_EQUAL(exit_code, 0);
     assert_lines(OUTFILE, out_txt, sizeof(out_txt) / sizeof(*out_txt));
@@ -283,7 +460,8 @@ int main(void) {
     // setup, run, teardown
     TestMainBasic("Verketteteliste", setup, teardown, test_person_compareTo, test_person_areEquals,
                   test_list_addPerson_removePerson_one, test_list_addPerson_removePerson_multiple,
-                  test_list_clearList_empty, test_list_clearList, test_exit_application, test_simple_add_remove
+                  test_list_clearList_empty, test_list_clearList, test_exit_application, test_simple_add_clear,
+                  test_check_sorting, test_insert_input_validation, test_clear_empty, test_add_remove
 
     );
 }

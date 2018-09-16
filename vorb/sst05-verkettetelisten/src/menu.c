@@ -39,19 +39,19 @@ int createPersonWizard(const char * wizardText, Person * person) {
     (void) printf("%s", wizardText);
     (void) printf("Name: ");
     if (readInput("%19s", &name) != 1) {
-        (void)printf("Ungueltige Eingabe für Name\n");
+        (void)printf("Ungueltige Eingabe fuer Name\n");
         return -1;
     }
 
     (void) printf("\nVorname: ");
     if (readInput("%19s", &firstname) != 1) {
-        (void)printf("Ungueltige Eingabe für Vorname\n");
+        (void)printf("Ungueltige Eingabe fuer Vorname\n");
         return -1;
     }
 
     (void) printf("\nAlter: ");
     if (readInput("%d", &age) != 1) {
-        (void)printf("Ungueltige Eingabe für Alter\n");
+        (void)printf("Ungueltige Eingabe fuer Alter\n");
         return -1;
     }
 
