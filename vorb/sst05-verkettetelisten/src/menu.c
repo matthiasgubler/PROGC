@@ -20,7 +20,7 @@ Menu showMenuAndGetSelectedFunction() {
     char menuSelectionChar;
     Menu menuSelection;
 
-    (void) printf("\nEingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), C(lear), E(nd)\n");
+    (void) printf("\nEingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), E(nd)\n");
 
     int scannedParams = readInput("%c", &menuSelectionChar);
     if (scannedParams == 1) {
@@ -39,19 +39,19 @@ int createPersonWizard(const char * wizardText, Person * person) {
     (void) printf("%s", wizardText);
     (void) printf("Name: ");
     if (readInput("%19s", &name) != 1) {
-        (void)printf("Ungueltige Eingabe fuer Name\n");
+        (void)printf("\nUngueltige Eingabe fuer Name\n");
         return -1;
     }
 
     (void) printf("\nVorname: ");
     if (readInput("%19s", &firstname) != 1) {
-        (void)printf("Ungueltige Eingabe fuer Vorname\n");
+        (void)printf("\nUngueltige Eingabe fuer Vorname\n");
         return -1;
     }
 
     (void) printf("\nAlter: ");
     if (readInput("%d", &age) != 1) {
-        (void)printf("Ungueltige Eingabe fuer Alter\n");
+        (void)printf("\nUngueltige Eingabe fuer Alter\n");
         return -1;
     }
 
@@ -59,6 +59,18 @@ int createPersonWizard(const char * wizardText, Person * person) {
     (void)strcpy(person->name, name);
     (void)strcpy(person->firstname, firstname);
     person->age = age;
+    return 0;
+}
+
+int createFilterWizard(char * filterText) {
+
+    (void) printf("Suche nach Personen\n");
+    (void) printf("Filter: ");
+    if (readInput("%19s", filterText) != 1) {
+        (void)printf("\nUngueltige Eingabe fuer Filter\n");
+        return -1;
+    }
+    (void) printf("\n");
     return 0;
 }
 

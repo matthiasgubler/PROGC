@@ -2,9 +2,12 @@
 // Created by Matthias Gubler on 15.09.18.
 //
 
+#include <string.h>
 #include "list.h"
 
 ListElementPtr searchInsertIndex(Person *person);
+
+bool startsWith(const char *pre, const char *str);
 
 ListElementPtr anchorListElementPtr;
 
@@ -95,14 +98,27 @@ ListElementPtr getListElementByPerson(Person *person) {
     return NULL;
 }
 
-void printCurrentList() {
+void printCurrentListWithFilter(const char *filterText) {
     if (anchorListElementPtr == anchorListElementPtr->next) {
         (void) printf("#### LISTE LEER ####\n");
     }
 
     ListElementPtr currentSearchPtr = anchorListElementPtr->next;
     while (currentSearchPtr != anchorListElementPtr) {
-        prettyPrintPerson(currentSearchPtr->person);
+        if (filterText == NULL || startsWith(filterText, currentSearchPtr->person->firstname) ||
+            startsWith(filterText, currentSearchPtr->person->name)) {
+            prettyPrintPerson(currentSearchPtr->person);
+        }
         currentSearchPtr = currentSearchPtr->next;
     }
+}
+
+void printCurrentList() {
+    printCurrentListWithFilter(NULL);
+}
+
+bool startsWith(const char *pre, const char *str) {
+    size_t lenpre = strlen(pre),
+            lenstr = strlen(str);
+    return lenstr < lenpre ? false : strncmp(pre, str, lenpre) == 0;
 }

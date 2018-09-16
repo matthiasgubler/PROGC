@@ -11,10 +11,14 @@
 #define BUFFER_ERROR 3
 
 typedef enum {
-    Insert = 'I', Remove = 'R', Show = 'S', Clear = 'C', End = 'E', Invalid = '0'
+    Insert = 'I', Remove = 'R', Show = 'S', Clear = 'C', End = 'E', Filter = 'F', Invalid = '0'
 } Menu;
 
 Menu showMenuAndGetSelectedFunction();
-int createPersonWizard(const char * wizardText, Person * person);
+
+int createPersonWizard(const char *wizardText, Person *person);
+
+int createFilterWizard(char *filterText);
+
 
 #endif //PROGC_MENU_H

@@ -35,54 +35,60 @@ bool run = true;
  *                  EXIT_FAILURE (=1) if more than one argument is given.
  */
 int main(int argc, char *argv[]) {
-    if(initList() != SUCCESS){
+    if (initList() != SUCCESS) {
         exit(EXIT_ERROR);
     }
 
     do {
-        switch (showMenuAndGetSelectedFunction())
-        {
+        switch (showMenuAndGetSelectedFunction()) {
             case Insert:
                 (void) printf("=====Insert=====\n");
-                Person * person;
-                if((person = initializePerson(person)) == NULL){
+                Person *person;
+                if ((person = initializePerson(person)) == NULL) {
                     (void) printf("Could not allocate Memory for Person");
                     exit(EXIT_ERROR);
                 }
-                if(createPersonWizard("Neue Person erfassen\n", person) == 0){
-                    (void)printf("Neue Person wird hinzugefuegt\n");
+                if (createPersonWizard("Neue Person erfassen\n", person) == 0) {
+                    (void) printf("Neue Person wird hinzugefuegt\n");
                     prettyPrintPerson(person);
                     addPerson(person);
-                }else{
-                    (void)printf("Abbruch\n");
+                } else {
+                    (void) printf("Abbruch\n");
                     freePerson(person);
                 }
-            break;
+                break;
             case Remove:
                 (void) printf("=====Remove=====\n");
                 Person personToDelete;
-                if(createPersonWizard("Zu loeschende Person angeben\n", &personToDelete) == 0){
-                    (void)printf("Person wird geloescht:\n");
+                if (createPersonWizard("Zu loeschende Person angeben\n", &personToDelete) == 0) {
+                    (void) printf("Person wird geloescht:\n");
                     prettyPrintPerson(&personToDelete);
                     removePerson(&personToDelete);
                 }
-            break;
+                break;
             case Show:
                 (void) printf("=====Show=====\n");
                 printCurrentList();
-            break;
+                break;
             case Clear:
                 (void) printf("=====Clear=====\n");
                 (void) printf("#### ALLE PERSONEN GELOESCHT ####\n");
                 clearList();
-            break;
+                break;
+            case Filter:
+                (void) printf("=====Filter=====\n");
+                char filterText[20];
+                if (createFilterWizard(filterText) == 0) {
+                    printCurrentListWithFilter(filterText);
+                }
+                break;
             case End:
                 (void) printf("=====Good Bye=====\n");
                 run = false;
-            break;
+                break;
             default:
                 (void) printf("Ungueltige Eingabe\n");
-            break;
+                break;
         }
     } while (run);
 

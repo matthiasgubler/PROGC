@@ -30,6 +30,8 @@ void removeListElement(ListElementPtr listElementToRemove);
 
 ListElementPtr getListElementByPerson(Person *person);
 
+void printCurrentListWithFilter(const char * filterText);
+
 void printCurrentList();
 
 void clearList();
