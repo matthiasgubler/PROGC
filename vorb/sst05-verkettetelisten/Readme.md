@@ -16,4 +16,4 @@ Nach dem Kompilieren kann das Modul via ./sst05-verketteteliste aufgerufen werde
 
 
 ## Issues
-ALle Sonderzeichen mussten für die Unittests angepasst werden (z.B. ä = ae), da die Tests sonst failen
+Alle Sonderzeichen mussten für die Unittests angepasst werden (z.B. ä = ae), da die Tests sonst failen
