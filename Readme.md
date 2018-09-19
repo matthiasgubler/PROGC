@@ -11,6 +11,6 @@ Der Code der einzelnen Aufgaben können hier gefunden werden:
 
 [Selbststudium 03: Notenstatistik](./vorb/sst03-notenstatistik)
 
-[Selbststudium 04: Pointers & Arrays](./vorb/sst04-pointersarrays)
+[Selbststudium 04: Pointers & Arrays](./vorb/sst04-pointer-arrays)
 
 [Selbststudium 05: Verkettete Listen](./vorb/sst05-verkettetelisten)
