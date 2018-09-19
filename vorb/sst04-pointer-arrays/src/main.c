@@ -15,10 +15,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
-
-
-int readWords(char *wordList[], int* wordCounter);
-int sort(char * words[], int size);
+#include "pointer.h"
 
 
 /**
@@ -33,27 +30,32 @@ int sort(char * words[], int size);
  */
 int main(int argc, char* argv[])
 {
-    char *wordList[100];
+    char *wordList[MAX_WORDS] = {0};
     int wordCounter = 0;
     if (!readWords(wordList, &wordCounter)) {
         printf("Fehler beim einlesen der Woerter..");
         return 0;
     }
-    //sort(wordList, &wordCounter);
-    //printf("wort ist: %s\n", wordList[0]);
-    //printf("wort ist: %s\n", wordList[1]);
-    //printf("wort ist: %s\n", wordList[2]);
-    //printf("wort ist: %s\n", wordList[3]);
+    sort(wordList, wordCounter);
+    for (int x = 0; x < 50; x++) {
+        if (wordList[x] != NULL) {
+            printf("%s\n", wordList[x]);
+        }
+    }
     return EXIT_SUCCESS;
 }
 
-int sort(char * words[], int size) {
+/**
+ * bubble-sort weil am einfachsten, zum swappen von pointern;
+ * @param words
+ * @param size
+ * @return
+ */
+int sort(char * words[100], int size) {
     int swapCounter = 0;
     for (int x=1; x<=size-1; x++) {
         if (strcmp(words[x-1], words[x]) > 0) {
-            char * temp = words[x];
-            words[x] = words[x - 1];
-            words[x-1] = temp;
+            swapIt(&words[x], &words[x-1]);
             swapCounter++;
         }
     }
@@ -62,22 +64,28 @@ int sort(char * words[], int size) {
     }
 }
 
+void swapIt(char ** word1, char ** word2) {
+    char * temp = *word1;
+    *word1 = *word2;
+    *word2 = temp;
+}
+
 int readWords(char *wordList[], int *wordCounter) {
-    char currentWord[20];
+    char currentWord[MAX_STRING_LENGTH] = {0};
     int readInput = 1, counter=0, scanResult;
     size_t size;
     while (readInput) {
         (void) printf("Geben Sie ein Wort ein: ");
-        scanResult = scanf("%s", currentWord);
+        scanResult = scanf("%20s", currentWord);
         if (scanResult < 1) {
             printf("ungültiger Wert eingegeben");
             return 0;
         }
-        if (strcmp(currentWord, "ZZZ") != 0) {
+        if (strcmp(currentWord, STOP_WORD) != 0 && *wordCounter < MAX_WORDS-1) {
             *wordCounter = *wordCounter+1;
             size = strlen(currentWord);
             //char ist 1 byte immer, deshalb einfach size + 1.
-            char *copyWord = malloc(size+1);
+            char * copyWord = malloc(size+1);
             if (copyWord == NULL) {
                 printf("malloc Zuweisung failed...");
                 return 0;
