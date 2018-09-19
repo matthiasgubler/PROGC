@@ -62,6 +62,7 @@ int sort(char * words[100], int size) {
     if (swapCounter > 0) {
         sort(words, size);
     }
+    return 1;
 }
 
 void swapIt(char ** word1, char ** word2) {
