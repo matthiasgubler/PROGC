@@ -17,7 +17,6 @@
 #include <string.h>
 #include "pointer.h"
 
-
 /**
  * @brief Main entry point.
  * @param[in] argc  The size of the argv array.
@@ -71,6 +70,17 @@ void swapIt(char ** word1, char ** word2) {
     *word2 = temp;
 }
 
+int wordExists(char *wordList[], const char *word) {
+    for (int x=0; x<MAX_WORDS; x++) {
+        if (wordList[x] != NULL) {
+            if (strcmp(wordList[x], word) == 0) {
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+
 int readWords(char *wordList[], int *wordCounter) {
     char currentWord[MAX_STRING_LENGTH] = {0};
     int readInput = 1, counter=0, scanResult;
@@ -82,18 +92,20 @@ int readWords(char *wordList[], int *wordCounter) {
             printf("ungültiger Wert eingegeben");
             return 0;
         }
-        if (strcmp(currentWord, STOP_WORD) != 0 && *wordCounter < MAX_WORDS-1) {
-            *wordCounter = *wordCounter+1;
-            size = strlen(currentWord);
-            //char ist 1 byte immer, deshalb einfach size + 1.
-            char * copyWord = malloc(size+1);
-            if (copyWord == NULL) {
-                printf("malloc Zuweisung failed...");
-                return 0;
+        else if (strcmp(currentWord, STOP_WORD) != 0 && *wordCounter < MAX_WORDS-1) {
+            if (wordCounter <= 0 || !wordExists(wordList, currentWord)) {
+                *wordCounter = *wordCounter+1;
+                size = strlen(currentWord);
+                //char ist 1 byte immer, deshalb einfach size + 1.
+                char * copyWord = malloc(size+1);
+                if (copyWord == NULL) {
+                    printf("malloc Zuweisung failed...");
+                    return 0;
+                }
+                strncpy(copyWord, currentWord, size);
+                *(wordList+counter) = copyWord;
+                counter++;
             }
-            strncpy(copyWord, currentWord, size);
-            *(wordList+counter) = copyWord;
-            counter++;
         } else {
             readInput = 0;
         }
