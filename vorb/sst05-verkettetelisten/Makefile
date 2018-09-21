@@ -2,7 +2,7 @@
 TARGET        := bin/sst05-verketteteliste
 
 # implementation files
-SOURCES       := src/main.c src/menu.c src/person.c src/list.c
+SOURCES       := src/main.c src/menu.c src/person.c src/list.c src/hunkydory.c
 
 # test implementations
 TSTSOURCES    := tests/tests.c

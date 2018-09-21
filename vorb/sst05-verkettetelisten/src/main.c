@@ -18,6 +18,7 @@
 #include "menu.h"
 #include "list.h"
 #include "person.h"
+#include "hunkydory.h"
 
 #define EXIT_OK 0
 #define EXIT_ERROR 1
@@ -69,6 +70,9 @@ int main(int argc, char *argv[]) {
             case Show:
                 (void) printf("=====Show=====\n");
                 printCurrentList();
+                break;
+            case HunkyDory:
+                printHunkyDory();
                 break;
             case Clear:
                 (void) printf("=====Clear=====\n");

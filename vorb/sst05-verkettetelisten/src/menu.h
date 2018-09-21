@@ -11,7 +11,7 @@
 #define BUFFER_ERROR 3
 
 typedef enum {
-    Insert = 'I', Remove = 'R', Show = 'S', Clear = 'C', End = 'E', Filter = 'F', Invalid = '0'
+    Insert = 'I', Remove = 'R', Show = 'S', Clear = 'C', End = 'E', Filter = 'F', HunkyDory = 'H', Invalid = '0'
 } Menu;
 
 Menu showMenuAndGetSelectedFunction();

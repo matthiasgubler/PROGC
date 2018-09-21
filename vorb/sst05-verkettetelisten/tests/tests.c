@@ -220,8 +220,8 @@ static void test_list_clearList(void) {
 static void test_exit_application(void) {
     // arrange
     const char *out_txt[] = {
-            "\nEingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), E(nd)\nUngueltige Eingabe\n"
-            "\nEingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), E(nd)\n=====Good Bye=====\n"
+            "\nEingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), H(unkyDory), E(nd)\nUngueltige Eingabe\n"
+            "\nEingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), H(unkyDory), E(nd)\n=====Good Bye=====\n"
     };
     // act
     int
@@ -235,21 +235,21 @@ static void test_exit_application(void) {
 static void test_simple_add_clear(void) {
     // arrange
     const char *out_txt[] = {
-            "\n", "Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), E(nd)\n",
+            "\n", "Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), H(unkyDory), E(nd)\n",
             "=====Insert=====\n", "Neue Person erfassen\n", "Name: \n", "Vorname: \n", "Alter: \n",
             "Neue Person wird hinzugefuegt\n", "Gubler Matthias, 24\n", "\n",
-            "Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), E(nd)\n", "=====Show=====\n",
+            "Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), H(unkyDory), E(nd)\n", "=====Show=====\n",
             "Gubler Matthias, 24\n", "\n",
-            "Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), E(nd)\n", "=====Insert=====\n",
+            "Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), H(unkyDory), E(nd)\n", "=====Insert=====\n",
             "Neue Person erfassen\n", "Name: \n", "Vorname: \n", "Alter: \n", "Neue Person wird hinzugefuegt\n",
             "Colombo Daniele, 29\n", "\n",
-            "Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), E(nd)\n", "=====Show=====\n",
+            "Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), H(unkyDory), E(nd)\n", "=====Show=====\n",
             "Colombo Daniele, 29\n", "Gubler Matthias, 24\n", "\n",
-            "Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), E(nd)\n", "=====Clear=====\n",
+            "Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), H(unkyDory), E(nd)\n", "=====Clear=====\n",
             "#### ALLE PERSONEN GELOESCHT ####\n", "\n",
-            "Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), E(nd)\n", "=====Show=====\n",
+            "Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), H(unkyDory), E(nd)\n", "=====Show=====\n",
             "#### LISTE LEER ####\n", "\n",
-            "Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), E(nd)\n", "=====Good Bye=====\n"
+            "Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), H(unkyDory), E(nd)\n", "=====Good Bye=====\n"
     };
     // act
     int
@@ -264,7 +264,7 @@ static void test_check_sorting(void) {
     // arrange
     const char *out_txt[] = {
             "\n"
-            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), E(nd)\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), H(unkyDory), E(nd)\n"
             ,"=====Insert=====\n"
             ,"Neue Person erfassen\n"
             ,"Name: \n"
@@ -273,7 +273,7 @@ static void test_check_sorting(void) {
             ,"Neue Person wird hinzugefuegt\n"
             ,"XXX BBB, 24\n"
             ,"\n"
-            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), E(nd)\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), H(unkyDory), E(nd)\n"
             ,"=====Insert=====\n"
             ,"Neue Person erfassen\n"
             ,"Name: \n"
@@ -282,7 +282,7 @@ static void test_check_sorting(void) {
             ,"Neue Person wird hinzugefuegt\n"
             ,"AAA BBB, 30\n"
             ,"\n"
-            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), E(nd)\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), H(unkyDory), E(nd)\n"
             ,"=====Insert=====\n"
             ,"Neue Person erfassen\n"
             ,"Name: \n"
@@ -291,7 +291,7 @@ static void test_check_sorting(void) {
             ,"Neue Person wird hinzugefuegt\n"
             ,"BBB BBB, 22\n"
             ,"\n"
-            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), E(nd)\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), H(unkyDory), E(nd)\n"
             ,"=====Insert=====\n"
             ,"Neue Person erfassen\n"
             ,"Name: \n"
@@ -300,7 +300,7 @@ static void test_check_sorting(void) {
             ,"Neue Person wird hinzugefuegt\n"
             ,"AAA BBB, 31\n"
             ,"\n"
-            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), E(nd)\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), H(unkyDory), E(nd)\n"
             ,"=====Insert=====\n"
             ,"Neue Person erfassen\n"
             ,"Name: \n"
@@ -309,7 +309,7 @@ static void test_check_sorting(void) {
             ,"Neue Person wird hinzugefuegt\n"
             ,"ZZZ KKK, 21\n"
             ,"\n"
-            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), E(nd)\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), H(unkyDory), E(nd)\n"
             ,"=====Show=====\n"
             ,"AAA BBB, 30\n"
             ,"AAA BBB, 31\n"
@@ -317,7 +317,7 @@ static void test_check_sorting(void) {
             ,"XXX BBB, 24\n"
             ,"ZZZ KKK, 21\n"
             ,"\n"
-            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), E(nd)\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), H(unkyDory), E(nd)\n"
             ,"=====Good Bye=====\n"
     };
     // act
@@ -333,7 +333,7 @@ static void test_insert_input_validation(void) {
     // arrange
     const char *out_txt[] = {
             "\n"
-            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), E(nd)\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), H(unkyDory), E(nd)\n"
             ,"=====Insert=====\n"
             ,"Neue Person erfassen\n"
             ,"Name: \n"
@@ -342,11 +342,11 @@ static void test_insert_input_validation(void) {
             ,"Neue Person wird hinzugefuegt\n"
             ,"1234567890123456789 1234567890123456789, 30\n"
             ,"\n"
-            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), E(nd)\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), H(unkyDory), E(nd)\n"
             ,"=====Show=====\n"
             ,"1234567890123456789 1234567890123456789, 30\n"
             ,"\n"
-            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), E(nd)\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), H(unkyDory), E(nd)\n"
             ,"=====Insert=====\n"
             ,"Neue Person erfassen\n"
             ,"Name: \n"
@@ -355,11 +355,11 @@ static void test_insert_input_validation(void) {
              "Ungueltige Eingabe fuer Alter\n"
             ,"Abbruch\n"
             ,"\n"
-            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), E(nd)\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), H(unkyDory), E(nd)\n"
             ,"=====Show=====\n"
             ,"1234567890123456789 1234567890123456789, 30\n"
             ,"\n"
-            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), E(nd)\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), H(unkyDory), E(nd)\n"
             ,"=====Good Bye=====\n"
     };
     // act
@@ -375,19 +375,19 @@ static void test_clear_empty(void) {
     // arrange
     const char *out_txt[] = {
             "\n"
-            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), E(nd)\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), H(unkyDory), E(nd)\n"
             ,"=====Show=====\n"
             ,"#### LISTE LEER ####\n"
             ,"\n"
-            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), E(nd)\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), H(unkyDory), E(nd)\n"
             ,"=====Clear=====\n"
             ,"#### ALLE PERSONEN GELOESCHT ####\n"
             ,"\n"
-            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), E(nd)\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), H(unkyDory), E(nd)\n"
             ,"=====Show=====\n"
             ,"#### LISTE LEER ####\n"
             ,"\n"
-            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), E(nd)\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), H(unkyDory), E(nd)\n"
             ,"=====Good Bye=====\n"
     };
     // act
@@ -403,7 +403,7 @@ static void test_add_remove(void) {
     // arrange
     const char *out_txt[] = {
             "\n"
-            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), E(nd)\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), H(unkyDory), E(nd)\n"
             ,"=====Insert=====\n"
             ,"Neue Person erfassen\n"
             ,"Name: \n"
@@ -412,11 +412,11 @@ static void test_add_remove(void) {
             ,"Neue Person wird hinzugefuegt\n"
             ,"Gubler Matthias, 24\n"
             ,"\n"
-            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), E(nd)\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), H(unkyDory), E(nd)\n"
             ,"=====Show=====\n"
             ,"Gubler Matthias, 24\n"
             ,"\n"
-            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), E(nd)\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), H(unkyDory), E(nd)\n"
             ,"=====Remove=====\n"
             ,"Zu loeschende Person angeben\n"
             ,"Name: \n"
@@ -426,11 +426,11 @@ static void test_add_remove(void) {
             ,"Colombo Daniele, 29\n"
             ,"Person nicht gefunden (NICHTS geloescht)\n"
             ,"\n"
-            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), E(nd)\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), H(unkyDory), E(nd)\n"
             ,"=====Show=====\n"
             ,"Gubler Matthias, 24\n"
             ,"\n"
-            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), E(nd)\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), H(unkyDory), E(nd)\n"
             ,"=====Remove=====\n"
             ,"Zu loeschende Person angeben\n"
             ,"Name: \n"
@@ -439,11 +439,11 @@ static void test_add_remove(void) {
             ,"Person wird geloescht:\n"
             ,"Gubler Matthias, 24\n"
             ,"\n"
-            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), E(nd)\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), H(unkyDory), E(nd)\n"
             ,"=====Show=====\n"
             ,"#### LISTE LEER ####\n"
             ,"\n"
-            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), E(nd)\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), H(unkyDory), E(nd)\n"
             ,"=====Good Bye=====\n"
     };
     // act
@@ -459,7 +459,7 @@ static void test_filter(void) {
     // arrange
     const char *out_txt[] = {
             "\n"
-            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), E(nd)\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), H(unkyDory), E(nd)\n"
             ,"=====Insert=====\n"
             ,"Neue Person erfassen\n"
             ,"Name: \n"
@@ -468,7 +468,7 @@ static void test_filter(void) {
             ,"Neue Person wird hinzugefuegt\n"
             ,"Gubler Matthias, 25\n"
             ,"\n"
-            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), E(nd)\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), H(unkyDory), E(nd)\n"
             ,"=====Insert=====\n"
             ,"Neue Person erfassen\n"
             ,"Name: \n"
@@ -477,7 +477,7 @@ static void test_filter(void) {
             ,"Neue Person wird hinzugefuegt\n"
             ,"Gugger Monika, 33\n"
             ,"\n"
-            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), E(nd)\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), H(unkyDory), E(nd)\n"
             ,"=====Insert=====\n"
             ,"Neue Person erfassen\n"
             ,"Name: \n"
@@ -486,31 +486,31 @@ static void test_filter(void) {
             ,"Neue Person wird hinzugefuegt\n"
             ,"Deutsch Thomas, 44\n"
             ,"\n"
-            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), E(nd)\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), H(unkyDory), E(nd)\n"
             ,"=====Show=====\n"
             ,"Deutsch Thomas, 44\n"
             ,"Gubler Matthias, 25\n"
             ,"Gugger Monika, 33\n"
             ,"\n"
-            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), E(nd)\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), H(unkyDory), E(nd)\n"
             ,"=====Filter=====\n"
             ,"Suche nach Personen\n"
             ,"Filter: \n"
             ,"Gubler Matthias, 25\n"
             ,"Gugger Monika, 33\n"
             ,"\n"
-            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), E(nd)\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), H(unkyDory), E(nd)\n"
             ,"=====Filter=====\n"
             ,"Suche nach Personen\n"
             ,"Filter: \n"
             ,"Gubler Matthias, 25\n"
             ,"\n"
-            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), E(nd)\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), H(unkyDory), E(nd)\n"
             ,"=====Filter=====\n"
             ,"Suche nach Personen\n"
             ,"Filter: \n"
             ,"\n"
-            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), E(nd)\n"
+            ,"Eingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), H(unkyDory), E(nd)\n"
             ,"=====Good Bye=====\n"
     };
     // act

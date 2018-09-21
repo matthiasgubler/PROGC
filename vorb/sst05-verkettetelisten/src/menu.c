@@ -20,7 +20,7 @@ Menu showMenuAndGetSelectedFunction() {
     char menuSelectionChar;
     Menu menuSelection;
 
-    (void) printf("\nEingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), E(nd)\n");
+    (void) printf("\nEingabe der gewuenschten Funktion: I(nsert), R(emove), S(how), F(ilter), C(lear), H(unkyDory), E(nd)\n");
 
     int scannedParams = readInput("%c", &menuSelectionChar);
     if (scannedParams == 1) {
