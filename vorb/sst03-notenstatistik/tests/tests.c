@@ -44,12 +44,27 @@ static int teardown(void)
 }
 
 // tests
-static void test_main_with_zero_args(void)
+static void testMarkCalc(void)
 {
-	//const char *out_txt[] = {"HANS"};
-	//int exit_code = system(XSTR(TARGET) " 1>" OUTFILE " 2>" ERRFILE " <" INFILE);
-	//assert_lines(OUTFILE, out_txt, sizeof(out_txt)/sizeof(*out_txt));
+    int note5 = calcNote(20, 28);
+    int note1 = calcNote(0, 28);
+    int note6 = calcNote(20, 20);
+    int note66 = calcNote(200, 20);
+
+    CU_ASSERT_EQUAL(note5, 5);
+    CU_ASSERT_EQUAL(note1, 1);
+    CU_ASSERT_EQUAL(note6, 6);
+    CU_ASSERT_EQUAL(note66, 6);
+}
+
+// tests
+
+static void testAllInOne(void)
+{
     int punkte[100] = {0}, noten[100] = {0};
+    for (int x=0; x<100; x++) {
+        punkte[x] = -1;
+    }
     int minimum6 = 15;
     struct MarkCounter counter = {0, 0, 0, 0, 0, 0};
 
@@ -62,7 +77,6 @@ static void test_main_with_zero_args(void)
     int worst = findWorstMark(&counter);
     int best = findBestMark(&counter);
     int morethan4 = calcMoreThan4(&counter);
-    printf("hehe %d", best);
     CU_ASSERT_EQUAL(worst, 3);
     CU_ASSERT_EQUAL(best, 6);
     CU_ASSERT_EQUAL(morethan4, 2);
@@ -73,16 +87,6 @@ static void test_main_with_zero_args(void)
     CU_ASSERT_EQUAL(counter.vierer, 1);
     CU_ASSERT_EQUAL(counter.fuenfer, 0);
     CU_ASSERT_EQUAL(counter.sechser, 1);
-
-
-
-
-
-
-
-
-
-
 }
 
 /**
@@ -92,6 +96,6 @@ int main(void)
 {
 	// setup, run, teardown
 	TestMainBasic("Hello World", setup, teardown
-				  , test_main_with_zero_args
+				  , testAllInOne, testMarkCalc
 				  );
 }

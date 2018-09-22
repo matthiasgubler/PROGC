@@ -35,7 +35,7 @@ int main(int argc, char* argv[])
         printf("Fehler beim einlesen der Woerter..");
         return 0;
     }
-    sort(wordList, wordCounter);
+    sort(wordList, wordCounter, getSortType(argc, argv[1]));
     for (int x = 0; x < 50; x++) {
         if (wordList[x] != NULL) {
             printf("%s\n", wordList[x]);
@@ -44,22 +44,37 @@ int main(int argc, char* argv[])
     return EXIT_SUCCESS;
 }
 
+int getSortType(int argc, char * type) {
+    if (argc > 1) {
+        return strcmp("desc", type) == 0 ? 1 : 0;
+    }
+    return 0;
+}
+
 /**
  * bubble-sort weil am einfachsten, zum swappen von pointern;
  * @param words
  * @param size
  * @return
  */
-int sort(char * words[100], int size) {
+int sort(char * words[100], int size, int type) {
     int swapCounter = 0;
     for (int x=1; x<=size-1; x++) {
-        if (strcmp(words[x-1], words[x]) > 0) {
-            swapIt(&words[x], &words[x-1]);
-            swapCounter++;
+        if (type == 0) {
+            if (strcmp(words[x-1], words[x]) > 0) {
+                swapIt(&words[x], &words[x-1]);
+                swapCounter++;
+            }
+        } else {
+            if (strcmp(words[x-1], words[x]) < 0) {
+                swapIt(&words[x], &words[x-1]);
+                swapCounter++;
+            }
         }
+
     }
     if (swapCounter > 0) {
-        sort(words, size);
+        sort(words, size, type);
     }
     return 1;
 }
@@ -82,12 +97,15 @@ int wordExists(char *wordList[], const char *word) {
 }
 
 int readWords(char *wordList[], int *wordCounter) {
-    char currentWord[MAX_STRING_LENGTH] = {0};
+    char currentWord[MAX_STRING_LENGTH + 1] = {0};
+    currentWord[20] = '\0';
     int readInput = 1, counter=0, scanResult;
     size_t size;
     while (readInput) {
         (void) printf("Geben Sie ein Wort ein: ");
-        scanResult = scanf("%20s", currentWord);
+        (void) fgets(currentWord, 21, stdin);
+        strtok(currentWord, "\n");
+        scanResult = 1;
         if (scanResult < 1) {
             printf("ungültiger Wert eingegeben");
             return 0;

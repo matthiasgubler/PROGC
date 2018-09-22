@@ -55,7 +55,7 @@ static void test_main_with_zero_args(void)
 	assert_lines(ERRFILE, err_txt, sizeof(err_txt)/sizeof(*err_txt));
 }
 
-static void test_main_with_one_arg(void)
+static void test_assignment(void)
 {
     struct Assignment1Result result = createAssignment1Result(13);
     CU_ASSERT_EQUAL(result.value, 13);
@@ -100,7 +100,7 @@ int main(void)
 	// setup, run, teardown
 	TestMainBasic("Hello World", setup, teardown
 				  , test_main_with_zero_args
-				  , test_main_with_one_arg
+				  , test_assignment
 				  , test_main_with_two_invalid_args
 				  , test_main_with_two_invalid_args_2
 				  );

@@ -31,7 +31,10 @@
 int main(int argc, char* argv[])
 {
     int minimum6, moreEqualFour;
-	int punkte[100] = {0}, noten[100] = {0};
+	int punkte[PUNKTE_SIZE], noten[PUNKTE_SIZE] = {0};
+	for (int x=0; x<PUNKTE_SIZE; x++) {
+	    punkte[x] = -1;
+	}
 	struct MarkCounter counter = {0, 0, 0, 0, 0, 0};
 	if (!readPoints(punkte)) {
 	    return EXIT_FAILURE;
@@ -120,9 +123,6 @@ int findBestMark(const struct MarkCounter* counter) {
 int calculateStatistics(const int *punkte, int *noten, int minimum6, struct MarkCounter *counter) {
     for (int x=0 ; x<100; x++) {
         *(noten + x) = calcNote(*(punkte + x), minimum6);
-        if (*(noten + x) > 6) {
-            *(noten + x) = 6;
-        }
         switch(*(noten + x)) {
             case 1: (*counter).einer = (*counter).einer+1; break;
             case 2: (*counter).zweier = (*counter).zweier+1; break;
@@ -136,16 +136,23 @@ int calculateStatistics(const int *punkte, int *noten, int minimum6, struct Mark
 }
 
 int calcNote(int punkte, int punkteFuer6) {
-    if (punkte == 0) {
+    if (punkte == -1) {
         return 0;
     }
-    return (int) round(1 + ((5.0 * punkte) /punkteFuer6));
+    int note = (int) round(1 + ((5.0 * punkte) /punkteFuer6));
+    if (note > 6) {
+        return 6;
+    }
+    if (note < 1) {
+        return 1;
+    }
+    return note;
 }
 
 int readMinimum(int *minimum) {
     (void) printf("Wieviele punkte fuer eine 6?: ");
-    int minimumValid = scanf("%u", minimum);
-    if (minimumValid < 1) {
+    int minimumValid = scanf("%d", minimum);
+    if (minimumValid < 1 || *minimum < 1) {
         (void) printf("Sie haben einen ungueltigen maximum-wert eingegeben");
         return 0;
     }

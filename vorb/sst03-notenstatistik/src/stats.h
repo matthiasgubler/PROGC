@@ -4,6 +4,7 @@
 
 #ifndef SST03_NOTENSTATISTIK_STATS_H
 #define SST03_NOTENSTATISTIK_STATS_H
+#define PUNKTE_SIZE 100
 struct MarkCounter {
     unsigned int sechser;
     unsigned int fuenfer;
