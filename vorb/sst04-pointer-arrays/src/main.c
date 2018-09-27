@@ -104,13 +104,13 @@ int readWords(char *wordList[], int *wordCounter) {
     while (readInput) {
         (void) printf("Geben Sie ein Wort ein: ");
         (void) fgets(currentWord, 21, stdin);
-        strtok(currentWord, "\n");
-        scanResult = 1;
-        if (scanResult < 1) {
-            printf("ungültiger Wert eingegeben");
+        char *pos;
+        if ((pos=strchr(currentWord, '\n')) != NULL)
+            *pos = '\0';
+        else {
             return 0;
         }
-        else if (strcmp(currentWord, STOP_WORD) != 0 && *wordCounter < MAX_WORDS-1) {
+        if (strcmp(currentWord, STOP_WORD) != 0 && *wordCounter < MAX_WORDS-1) {
             if (wordCounter <= 0 || !wordExists(wordList, currentWord)) {
                 *wordCounter = *wordCounter+1;
                 size = strlen(currentWord);
