@@ -36,7 +36,7 @@ int main(int argc, char* argv[])
         return 0;
     }
     sort(wordList, wordCounter, getSortType(argc, argv[1]));
-    for (int x = 0; x < 50; x++) {
+    for (int x = 0; x < MAX_WORDS; x++) {
         if (wordList[x] != NULL) {
             printf("%s\n", wordList[x]);
         }
@@ -57,7 +57,7 @@ int getSortType(int argc, char * type) {
  * @param size
  * @return
  */
-int sort(char * words[100], int size, int type) {
+int sort(char * words[], int size, int type) {
     int swapCounter = 0;
     for (int x=1; x<=size-1; x++) {
         if (type == 0) {
@@ -71,7 +71,6 @@ int sort(char * words[100], int size, int type) {
                 swapCounter++;
             }
         }
-
     }
     if (swapCounter > 0) {
         sort(words, size, type);
@@ -99,15 +98,16 @@ int wordExists(char *wordList[], const char *word) {
 int readWords(char *wordList[], int *wordCounter) {
     char currentWord[MAX_STRING_LENGTH + 1] = {0};
     currentWord[20] = '\0';
-    int readInput = 1, counter=0, scanResult;
+    int readInput = 1, counter=0;
     size_t size;
     while (readInput) {
         (void) printf("Geben Sie ein Wort ein: ");
-        (void) fgets(currentWord, 21, stdin);
+        (void) fgets(currentWord, MAX_STRING_LENGTH+1, stdin);
         char *pos;
         if ((pos=strchr(currentWord, '\n')) != NULL)
             *pos = '\0';
         else {
+            printf("Eingabe war laenger als 20 Zeichen\n");
             return 0;
         }
         if (strcmp(currentWord, STOP_WORD) != 0 && *wordCounter < MAX_WORDS-1) {

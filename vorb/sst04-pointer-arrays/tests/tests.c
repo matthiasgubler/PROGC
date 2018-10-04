@@ -16,6 +16,7 @@
 #include <stdlib.h>
 #include "CUnit/Basic.h"
 #include "test_utils.h"
+#include "../src/pointer.h"
 
 #ifndef TARGET // must be given by the make file --> see test target
 #error missing TARGET define
@@ -41,10 +42,40 @@ static int teardown(void)
 	return 0; // success
 }
 
-// tests
-static void test_main_with_zero_args(void)
-{
+static void test_word_exists(void) {
+    char *wordList[100] = {"Z", "A", "F", "G", "M"};
+    CU_ASSERT_EQUAL(wordExists(wordList, "A"), 1);
+    CU_ASSERT_EQUAL(wordExists(wordList, "N"), 0);
+}
 
+static void test_swap(void) {
+    char * words[5] = {"A", "B", "C", "D", "E"};
+    swapIt(&words[1], &words[3]);
+    CU_ASSERT_EQUAL(words[1], "D");
+    CU_ASSERT_EQUAL(words[3], "B");
+}
+
+static void test_sort_desc(void)
+{
+    char *wordList[100] = {"Z", "A", "F", "G", "M"};
+    sort(wordList, 5, 1);
+    CU_ASSERT_EQUAL(wordList[4], "A");
+    CU_ASSERT_EQUAL(wordList[3], "F");
+    CU_ASSERT_EQUAL(wordList[2], "G");
+    CU_ASSERT_EQUAL(wordList[1], "M");
+    CU_ASSERT_EQUAL(wordList[0], "Z");
+}
+
+// tests
+static void test_sort(void)
+{
+    char *wordList[100] = {"Z", "A", "F", "G", "M"};
+    sort(wordList, 5, 0);
+    CU_ASSERT_EQUAL(wordList[0], "A");
+    CU_ASSERT_EQUAL(wordList[1], "F");
+    CU_ASSERT_EQUAL(wordList[2], "G");
+    CU_ASSERT_EQUAL(wordList[3], "M");
+    CU_ASSERT_EQUAL(wordList[4], "Z");
 }
 
 /**
@@ -54,6 +85,6 @@ int main(void)
 {
 	// setup, run, teardown
 	TestMainBasic("Hello World", setup, teardown
-				  , test_main_with_zero_args
+				  , test_sort, test_sort_desc, test_word_exists, test_swap
 				  );
 }
