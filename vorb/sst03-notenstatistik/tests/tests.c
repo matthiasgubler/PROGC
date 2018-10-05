@@ -27,6 +27,7 @@
 /// @brief The name of the STDERR text file.
 #define ERRFILE "stderr.txt"
 #define INFILE "valid.input"
+#define INFILE2 "invalid.input"
 
 // setup & cleanup
 static int setup(void)
@@ -89,6 +90,39 @@ static void testAllInOne(void)
     CU_ASSERT_EQUAL(counter.sechser, 1);
 }
 
+static void test_with_print(void)
+{
+    // arrange
+    const char *out_txt[] = {"Geben Sie die erreichte Punktzahl ein: Geben Sie die erreichte Punktzahl ein: Geben Sie die erreichte Punktzahl ein: Geben Sie die erreichte Punktzahl ein: Wieviele punkte fuer eine 6?: Statistics (3 Students, 15 points needed for mark 6):\n"
+                             "Mark 6: 1\n"
+                             "Mark 5: 0\n"
+                             "Mark 4: 1\n"
+                             "Mark 3: 1\n"
+                             "Mark 2: 0\n"
+                             "Mark 1: 0\n"
+                             "\n"
+                             "Best mark: \t\t6\n"
+                             "Worst mark: \t\t3\n"
+                             "Average mark: \t\t4.33\n"
+                             "Mark >= 4: \t\t2\n"};
+    // act
+    int exit_code = system(XSTR(TARGET) " 1>" OUTFILE " 2>" ERRFILE " <" INFILE);
+    // assert
+    CU_ASSERT_EQUAL(exit_code, 0);
+    assert_lines(OUTFILE, out_txt, sizeof(out_txt) / sizeof(*out_txt));
+}
+
+static void test_with_invalid_print(void)
+{
+    // arrange
+    const char *out_txt[] = {"Geben Sie die erreichte Punktzahl ein: Geben Sie die erreichte Punktzahl ein: Sie haben einen ungueltigen Wert eingegeben"};
+    // act
+    int exit_code = system(XSTR(TARGET) " 1>" OUTFILE " 2>" ERRFILE " <" INFILE2);
+    // assert
+    CU_ASSERT_EQUAL(exit_code, 1<<8);
+    assert_lines(OUTFILE, out_txt, sizeof(out_txt) / sizeof(*out_txt));
+}
+
 /**
  * @brief Registers and runs the tests.
  */
@@ -96,6 +130,6 @@ int main(void)
 {
 	// setup, run, teardown
 	TestMainBasic("Hello World", setup, teardown
-				  , testAllInOne, testMarkCalc
+				  , testAllInOne, testMarkCalc, test_with_print, test_with_invalid_print
 				  );
 }
