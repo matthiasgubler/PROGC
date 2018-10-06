@@ -15,4 +15,5 @@ struct Assignment1Result {
     signed char zweier;
 };
 struct Assignment1Result createAssignment1Result(int arg1);
+#define MAX_ASS2 7
 #endif //SST01_KONTROLLSTRUKTUREN_SST01_H

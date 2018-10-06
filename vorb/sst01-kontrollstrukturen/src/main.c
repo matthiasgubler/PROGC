@@ -56,12 +56,12 @@ int main(int argc, char* argv[])
 		(void)printf("Keine Argumente");
 		return EXIT_FAILURE;
 	}
-	if (sscanf(argv[1], "%d", &arg1) < 1 || arg1 > MAX_VALUE) {
+	if (sscanf(argv[1], "%d", &arg1) < 1 || arg1 > MAX_VALUE || arg1 < 0) {
 		(void)printf("Argument1: invalid value");
 		return EXIT_FAILURE;
 	}
 	if (argc > 2) {
-		if (sscanf(argv[2], "%d", &arg2) < 1 || arg2 > 7) {
+		if (sscanf(argv[2], "%d", &arg2) < 1 || arg2 > MAX_ASS2 || arg2 < 0) {
 			(void)printf("Argument2: invalid value");
 			return EXIT_FAILURE;
 		}
